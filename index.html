@@ -1,20 +1,98 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin Guru - SDN Jatake 5</title>
-<style>body{font-family:Arial;padding:20px;background:#f1f5f9}.card{background:#fff;padding:20px;border-radius:12px;max-width:600px;margin:auto}input{width:100%;padding:10px;margin:6px 0 12px;border:1px solid #ccc;border-radius:8px}button{padding:10px 16px;border:0;border-radius:8px;font-weight:bold;cursor:pointer}.btn-blue{background:#1E40AF;color:#fff}.btn-red{background:#DC2626;color:#fff}.btn-green{background:#16a34a;color:#fff}.item{border:1px solid #eee;padding:10px;border-radius:8px;margin:8px 0;display:flex;justify-content:space-between;background:#f9fafb}</style>
-</head><body><div class="card">
-<h2>🔐 Admin Guru - SDN Jatake 5</h2>
-<input id="nama" placeholder="Nama Lengkap + Gelar">
-<input id="jabatan" placeholder="Jabatan, contoh: Wali Kelas 2B">
-<input id="nip" placeholder="NIP (opsional)">
-<button class="btn-blue" onclick="tambah()">➕ Tambah Guru</button>
-<button class="btn-green" onclick="exportKode()">📋 Copy Kode Permanen</button>
-<hr><div id="list"></div>
-<a href="index.html">← Kembali ke Web</a></div>
-<script>
-let guru=JSON.parse(localStorage.getItem('guruSDN5')||'null')||[{nama:"RUKMINI, S.Pd.SD",jabatan:"Kepala Sekolah",nip:"197212041993072001"},{nama:"LINDAWATI, S.PD",jabatan:"Wali Kelas VI C",nip:"198505122010012003"},{nama:"Hernawan",jabatan:"Operator Dapodik",nip:"-"}];
-function render(){document.getElementById('list').innerHTML=guru.map((g,i)=>`<div class="item"><div><b>${g.nama}</b><br><small>${g.jabatan} | ${g.nip}</small></div><button class="btn-red" onclick="hapus(${i})">Hapus</button></div>`).join('');localStorage.setItem('guruSDN5',JSON.stringify(guru))}
-function tambah(){const n=document.getElementById('nama').value.trim(),j=document.getElementById('jabatan').value.trim(),nip=document.getElementById('nip').value.trim();if(!n||!j){alert('Nama dan Jabatan wajib');return}guru.push({nama:n,jabatan:j,nip:nip||'-'});document.getElementById('nama').value='';document.getElementById('jabatan').value='';document.getElementById('nip').value='';render()}
-function hapus(i){if(confirm('Hapus?')){guru.splice(i,1);render()}}
-function exportKode(){navigator.clipboard.writeText(JSON.stringify(guru,null,2)).then(()=>alert('✅ Kode di-copy! Paste di index.html bagian DATA_GURU_DEFAULT'))}
-render();
-</script></body></html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SDN Jatake 5 - Kota Tangerang</title>
+<style>
+body{margin:0;font-family:Arial,Helvetica,sans-serif}
+.header{background:#fff;padding:10px 5%;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px #0002;position:sticky;top:0}
+.menu a{margin:0 10px;text-decoration:none;color:#333;font-weight:bold}
+.hero{background:#B91C1C;color:#fff;padding:50px 5%;display:flex;gap:20px;flex-wrap:wrap}
+.hero div{flex:1;min-width:300px}
+.btn{display:inline-block;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:bold;margin-top:10px}
+.btn-white{background:#fff;color:#B91C1C}
+.btn-blue{background:#1E40AF;color:#fff}
+.box{padding:40px 5%}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px}
+.card{border:1px solid #ddd;padding:15px;border-radius:10px;background:#f9fafb}
+.footer{background:#111827;color:#aaa;text-align:center;padding:20px;font-size:13px}
+table{width:100%;border-collapse:collapse}
+td{border:1px solid #ddd;padding:8px}
+</style>
+</head>
+<body>
+<div class="header">
+<b>🎓 SD NEGERI JATAKE 5<br><small>Kota Tangerang - Akreditasi A</small></b>
+<div class="menu">
+<a href="#profil">Profil</a><a href="#guru">Guru</a><a href="#ppdb">PPDB</a>
+<a class="btn btn-blue" href="https://rapor-asts.streamlit.app" target="_blank">Aplikasi Rapor</a>
+</div>
+</div>
+
+<div class="hero">
+<div>
+<span style="background:#fff;color:#B91C1C;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:bold">⭐ TERAKREDITASI A NPSN 20607186</span>
+<h1 style="font-size:32px;margin:15px 0">Membentuk Generasi Cerdas, Berkarakter & Berprestasi</h1>
+<p>SD Negeri Jatake 5 - Jl. Pajajaran Raya No.01a, Gandasari, Jatiuwung, Kota Tangerang, Banten 15137. Kurikulum Merdeka, 500+ Siswa.</p>
+<a class="btn btn-white" href="#ppdb">Daftar PPDB 2026/2027 →</a>
+</div>
+<div>
+<img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600" style="width:100%;border-radius:15px;border:4px solid #fff">
+</div>
+</div>
+
+<div class="box" id="profil">
+<h2 style="color:#B91C1C">🏫 Profil Sekolah</h2>
+<div class="grid">
+<div class="card">
+<h3>Identitas</h3>
+<table>
+<tr><td>NPSN</td><td>20607186</td></tr>
+<tr><td>NSS</td><td>1010 2230 4032</td></tr>
+<tr><td>Alamat</td><td>Jl. Pajajaran Raya No.1a</td></tr>
+<tr><td>Kelurahan</td><td>Gandasari</td></tr>
+<tr><td>Kecamatan</td><td>Jatiuwung</td></tr>
+<tr><td>Kota</td><td>Tangerang - Banten</td></tr>
+<tr><td>Email</td><td>upt.sp.sdnjatake5@gmail.com</td></tr>
+<tr><td>Berdiri</td><td>06 Agustus 1986</td></tr>
+<tr><td>Akreditasi</td><td>A</td></tr>
+</table>
+</div>
+<div class="card">
+<h3>Visi</h3>
+<p>Terwujudnya peserta didik yang beriman, bertaqwa, cerdas, terampil, berkarakter dan berbudaya lingkungan.</p>
+<h3 style="margin-top:15px">Misi</h3>
+<p>1. Menanamkan iman & taqwa<br>2. Pembelajaran aktif kreatif<br>3. Kembangkan potensi akademik<br>4. Budaya disiplin</p>
+</div>
+<div class="card">
+<h3>Fasilitas</h3>
+<p>✅ 17 Rombel<br>✅ Perpustakaan<br>✅ Lapangan Olahraga<br>✅ UKS & Mushola<br>✅ Internet<br>✅ Listrik PLN<br>✅ Luas 289 m²</p>
+</div>
+</div>
+</div>
+
+<div class="box" id="guru" style="background:#f1f5f9">
+<h2 style="color:#B91C1C">👨‍🏫 Guru & Tendik</h2>
+<div class="grid">
+<div class="card"><b>RUKMINI, S.Pd.SD</b><br>Kepala Sekolah<br>NIP. 197212041993072001</div>
+<div class="card"><b>LINDAWATI, S.PD</b><br>Wali Kelas VI C<br>NIP. 198505122010012003</div>
+<div class="card"><b>Hernawan</b><br>Operator Dapodik</div>
+</div>
+</div>
+
+<div class="box" id="ppdb">
+<h2 style="color:#B91C1C">📢 PPDB 2026/2027</h2>
+<p>Syarat: Usia 6 tahun, FC KK, Akta Lahir, KTP Ortu. GRATIS!</p>
+<a class="btn btn-blue" href="https://forms.gle/" target="_blank">📝 Daftar Online Sekarang</a>
+</div>
+
+<div class="box" id="kontak" style="background:#1e293b;color:#fff">
+<h2>📍 Kontak</h2>
+<p>Jl. Pajajaran Raya No.01a, Gandasari, Jatiuwung, Kota Tangerang 15137<br>
+Email: upt.sp.sdnjatake5@gmail.com | Maps: -6.2147, 106.585</p>
+<iframe src="https://maps.google.com/maps?q=-6.2147,106.585&z=15&output=embed" width="100%" height="220" style="border:0;border-radius:10px;margin-top:10px"></iframe>
+</div>
+
+<div class="footer">© 2026 SD NEGERI JATAKE 5 - Kota Tangerang | NPSN 20607186 | Akreditasi A</div>
+</body>
+</html>
